@@ -8,11 +8,11 @@ ms.date: 02/08/2018
 ms.topic: quickstart
 ms.devlang: go
 manager: routlaw
-ms.openlocfilehash: e530d944deca40e9e6c29b6c2768e2367822714e
-ms.sourcegitcommit: aaa8c37880332625f858a38f5918e6cf581bf48d
+ms.openlocfilehash: ae460dbf21b13c40f3d564274f8b790afe005aae
+ms.sourcegitcommit: af3473779cd7c2978f290fbdc51ee15eb1130840
 ms.translationtype: HT
 ms.contentlocale: sv-SE
-ms.lasthandoff: 02/15/2018
+ms.lasthandoff: 03/15/2018
 ---
 # <a name="quickstart-deploy-an-azure-virtual-machine-from-a-template-with-the-azure-sdk-for-go"></a>Snabbstart: Distribuera en virtuell Azure-dator från en mall med Azure SDK för Go
 
@@ -32,7 +32,7 @@ Om du använder en lokal installation av Azure CLI så krävs version 2.0.24 ell
 
 ## <a name="create-a-service-principal"></a>Skapa ett huvudnamn för tjänsten
 
-Om du vill logga in icke-interaktivt med ett program behöver du ett huvudnamn för tjänsten. Tjänstens huvudnamn är en del av rollbaserad autentisering (RBAC) som skapar en unik användaridentitet. Kör följande kommando för att skapa ett unikt huvudnamn för tjänsten med CLI:
+Om du vill logga in icke-interaktivt med ett program behöver du ett huvudnamn för tjänsten. Tjänstens huvudnamn är en del av rollbaserad åtkomstkontroll (RBAC), som skapar en unik användaridentitet. Kör följande kommando för att skapa ett unikt huvudnamn för tjänsten med CLI:
 
 ```azurecli-interactive
 az ad sp create-for-rbac --name az-go-vm-quickstart
@@ -40,7 +40,7 @@ az ad sp create-for-rbac --name az-go-vm-quickstart
 
 __Se till__ att spara värdena `appId`, `password`, och `tenant` i dina utdata. De här värdena används av programmet för att autentisera med Azure.
 
-Läs mer om att skapa och hantera huvudnamn för tjänsten med Azure CLI 2.0 i [Create an Azure service principal with Azure CLI 2.0](/cli/azure/create-an-azure-service-principal-azure-cli) (Skapa ett huvudnamn för tjänsten i Azure med Azure CLI 2.0).
+Läs mer om att skapa och hantera tjänstens huvudnamn med Azure CLI 2.0 i [Skapa Azure-tjänstens huvudnamn med Azure CLI 2.0](/cli/azure/create-an-azure-service-principal-azure-cli).
 
 ## <a name="get-the-code"></a>Hämta koden
 
@@ -79,7 +79,7 @@ Du måste även redigera ett värde i filen `vm-quickstart-params.json`.
     }
 ```
 
-* `vm_password`: Lösenordet för VM-användarkontot. Det måste vara 6–72 tecken långt och innehålla tre av följande tecken:
+* `vm_password`: Lösenordet för VM-användarkontot. Det måste vara 12–72 tecken långt och innehålla tre av följande tecken:
   * En gemen bokstav
   * En versal bokstav
   * En siffra
