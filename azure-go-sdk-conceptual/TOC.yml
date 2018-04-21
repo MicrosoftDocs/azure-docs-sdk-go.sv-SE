@@ -7,6 +7,8 @@ items:
         href: azure-sdk-go-install.md
       - name: Verktyg
         href: azure-sdk-go-tools.md
+      - name: Autentisering
+        href: azure-sdk-go-authorization.md
   - name: Snabbstarter för Go SDK
     items:
       - name: Virtuella datorer och resursmallar
