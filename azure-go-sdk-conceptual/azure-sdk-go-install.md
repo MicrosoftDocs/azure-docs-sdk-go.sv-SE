@@ -3,17 +3,17 @@ title: Installera Azure SDK för Go
 description: Anvisningar om hur du installerar, utför vendoring och konfigurerar Azure SDK för Go.
 author: sptramer
 ms.author: sttramer
-ms.date: 01/30/2018
+ms.date: 03/14/2018
 ms.topic: article
 ms.devlang: go
 manager: carmonm
-ms.openlocfilehash: 580daf4f2e91eabf97e3acd21bda183c559b57da
-ms.sourcegitcommit: fcc1786d59d2e32c97a9a8e0748e06f564a961bd
+ms.openlocfilehash: a6a92e080aea1a92f47a9d7083f133ca05a47541
+ms.sourcegitcommit: 26520a8c6e812facb5b9432d68c370fa23c99888
 ms.translationtype: HT
 ms.contentlocale: sv-SE
-ms.lasthandoff: 03/23/2018
+ms.lasthandoff: 04/16/2018
 ---
-# <a name="installing-the-azure-sdk-for-go"></a>Installera Azure SDK för Go
+# <a name="install-the-azure-sdk-for-go"></a>Installera Azure SDK för Go
 
 Välkommen till Azure SDK för Go! Med detta SDK kan du hantera och interagera med Azure-tjänster från Go-program.
 
@@ -27,7 +27,7 @@ Om du vill arbeta med Azure Storage Blobs krävs ett separat SDK.
 go get -u -d github.com/Azure/azure-storage-blob-go/...
 ```
 
-## <a name="vendoring-the-azure-sdk-for-go"></a>Utföra vendoring i Azure SDK för Go
+## <a name="vendor-the-azure-sdk-for-go"></a>Vendoring i Azure SDK för Go
 
 Du kan utföra vendoring för Azure SDK för Go via [dep](https://github.com/golang/dep). Vendoring rekommenderas av stabilitetsskäl. Om du vill använda stöd för `dep` lägger du till `github.com/Azure/azure-sdk-for-go` i ett `[[constraint]]`-avsnitt i din `Gopkg.toml`. Om du till exempel vill utföra vendoring för version `14.0.0` lägger du till följande post:
 
@@ -37,7 +37,7 @@ name = "github.com/Azure/azure-sdk-for-go"
 version = "14.0.0"
 ```
 
-## <a name="including-the-azure-sdk-for-go-in-your-project"></a>Ta med Azure SDK för Go i ditt projekt
+## <a name="include-the-azure-sdk-for-go-in-your-project"></a>Ta med Azure SDK för Go i ditt projekt
 
 Om du vill använda Azure-tjänster från din Go-kod importerar du alla tjänster som du interagerar med samt de nödvändiga `autorest`-modulerna.
 Du får en fullständig lista över tillgängliga moduler från GoDoc för [tillgängliga tjänster](https://godoc.org/github.com/Azure/azure-sdk-for-go) och [AutoRest-paket](https://godoc.org/github.com/Azure/go-autorest). De vanligaste paketen som du behöver från `go-autorest` är:
