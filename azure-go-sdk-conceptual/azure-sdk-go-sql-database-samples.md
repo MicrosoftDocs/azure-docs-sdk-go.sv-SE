@@ -15,6 +15,7 @@ ms.sourcegitcommit: f08abf902b48f8173aa6e261084ff2cfc9043305
 ms.translationtype: HT
 ms.contentlocale: sv-SE
 ms.lasthandoff: 05/03/2018
+ms.locfileid: "32319806"
 ---
 # <a name="azure-sdk-for-go-samples-for-azure-sql-database"></a>Azure SDK för Go-exempel för Azure SQL Database
 
