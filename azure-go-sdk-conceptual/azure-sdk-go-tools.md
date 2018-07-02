@@ -9,12 +9,12 @@ ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-sdk-go
 ms.devlang: go
-ms.openlocfilehash: 1e122ab161766023ea146329a5edb13143699b8b
-ms.sourcegitcommit: b81b17cbb934399c195bfdcb87137aee935f5234
+ms.openlocfilehash: 25b46e3a1636c39e261ba11c6f8939d8721cc693
+ms.sourcegitcommit: 79d216c6b0442d0f3b3660ff2a34dc8b2049390c
 ms.translationtype: HT
 ms.contentlocale: sv-SE
-ms.lasthandoff: 06/04/2018
-ms.locfileid: "34755540"
+ms.lasthandoff: 06/29/2018
+ms.locfileid: "37093166"
 ---
 # <a name="tools-for-developers-using-the-azure-sdk-for-go"></a>Verktyg för utvecklare som använder Azure SDK för Go
 
@@ -40,4 +40,4 @@ Visual Studio Code är ett enkelt redigeringsprogram som har omfattande stöd f�
 Det finns många sätt att hantera dina paketberoenden och utföra vendoring med Go eftersom det inte finns någon officiell lösning ännu. Det rekommenderade sättet att utföra den här hanteringen är med beroendehanteraren `dep`. Azure SDK för Go använder dep för vendoring och hämtar beroenden korrekt för alla andra projekt med hjälp av dep.
 
 > [!div class="nextstepaction"]
-> [Hämta dep-beroendehanteraren](https://github.com/tools/godep)
+> [Hämta dep-beroendehanteraren](https://github.com/golang/dep)
