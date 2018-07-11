@@ -9,12 +9,12 @@ ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-sdk-go
 ms.devlang: go
-ms.openlocfilehash: 25b46e3a1636c39e261ba11c6f8939d8721cc693
-ms.sourcegitcommit: 79d216c6b0442d0f3b3660ff2a34dc8b2049390c
+ms.openlocfilehash: 006d140bffb66fdd769a14511232d4ea5081811d
+ms.sourcegitcommit: 181d4e0b164cf39b3feac346f559596bd19c94db
 ms.translationtype: HT
 ms.contentlocale: sv-SE
-ms.lasthandoff: 06/29/2018
-ms.locfileid: "37093166"
+ms.lasthandoff: 07/11/2018
+ms.locfileid: "38066990"
 ---
 # <a name="tools-for-developers-using-the-azure-sdk-for-go"></a>Verktyg för utvecklare som använder Azure SDK för Go
 
@@ -22,7 +22,7 @@ Här är några rekommenderade verktyg för att effektivt skriva kod i Go och f�
 
 ## <a name="azure-cli-20"></a>Azure CLI 2.0
 
-Azure CLI 2.0 tillhandahåller ett kommandoradsgränssnitt för att skapa och konfigurera Azure-resurser i dina prenumerationer. CLI kan hjälpa dig att komma igång med att snabbt skapa vanliga och delade Azure-resurser så att du kan fokusera på mer avancerad användning av tjänster. CLI har funktioner för frågor och filtrering som gör att du kan skicka utdata direkt till dina favoritkommandoradsverktyg. CLI är tillgängligt för installation på din lokala dator, som en Docker-avbildning eller via [Azure Cloud Shell](https://docs.microsoft.com/en-us/azure/cloud-shell/overview).
+Azure CLI 2.0 tillhandahåller ett kommandoradsgränssnitt för att skapa och konfigurera Azure-resurser i dina prenumerationer. CLI kan hjälpa dig att komma igång med att snabbt skapa vanliga och delade Azure-resurser så att du kan fokusera på mer avancerad användning av tjänster. CLI har funktioner för frågor och filtrering som gör att du kan skicka utdata direkt till dina favoritkommandoradsverktyg. CLI är tillgängligt för installation på din lokala dator, som en Docker-avbildning eller via [Azure Cloud Shell](https://docs.microsoft.com/azure/cloud-shell/overview).
 
 > [!div class="nextstepaction"]
 > [Installera Azure CLI 2.0](/cli/azure/install-azure-cli)
