@@ -12,12 +12,12 @@ ms.technology: azure-sdk-go
 ms.devlang: go
 ms.service: active-directory
 ms.component: authentication
-ms.openlocfilehash: 370f5607b89c0044022f7987d06c3a55c9d6f352
-ms.sourcegitcommit: f08abf902b48f8173aa6e261084ff2cfc9043305
+ms.openlocfilehash: c7970167070bdf1f3fc75692f3e34268801c65df
+ms.sourcegitcommit: 181d4e0b164cf39b3feac346f559596bd19c94db
 ms.translationtype: HT
 ms.contentlocale: sv-SE
-ms.lasthandoff: 05/03/2018
-ms.locfileid: "32319891"
+ms.lasthandoff: 07/11/2018
+ms.locfileid: "38067007"
 ---
 # <a name="authentication-methods-in-the-azure-sdk-for-go"></a>Autentiseringsmetoder i Azure SDK för Go
 
@@ -30,7 +30,7 @@ Azure SDK för Go erbjuder flera olika typer av autentisering som använder olik
 | Autentiseringstyp | Rekommenderas när... |
 |---------------------|---------------------|
 | Certifikatbaserad autentisering | Du har ett X509-certifikat som har konfigurerats för en användare av Azure Active Directory (AAD) eller tjänstens huvudnamn. Läs [Komma igång med certifikatbaserad autentisering i Azure Active Directory] för att lära dig mer. |
-| Klientautentiseringsuppgifter | Du har ett konfigurerat huvudnamn för tjänsten som har konfigurerats för det här programmet eller en klass av program som det tillhör. Läs [Skapa Azure-tjänstens huvudnamn med Azure CLI 2.0] för att lära dig mer. |
+| Klientautentiseringsuppgifter | Du har ett konfigurerat huvudnamn för tjänsten som har konfigurerats för det här programmet eller en klass av program som det tillhör. Läs [Skapa ett huvudnamn för tjänsten med Azure CLI 2.0] för att lära dig mer. |
 | Hanterad tjänstidentitet (MSI) | Programmet körs på en Azure-resurs som har konfigurerats med Hanterad tjänstidentitet (MSI). Läs [Hanterad tjänstidentitet (MSI) för Azure-resurser] för att lära dig mer. |
 | Enhetstoken | Programmet är avsett att __endast__ användas interaktivt och har en mängd olika användare, potentiellt från flera AAD-klientorganisationer. Användare har åtkomst till en webbläsare för att logga in. Mer information finns i [Använda autentisering med enhetstoken](#use-device-token-authentication).|
 | Användarnamn/lösenord | Du har ett interaktivt program som inte kan använda någon annan autentiseringsmetod. Användarna har inte aktiverat multifaktorautentisering för sin AAD-inloggning. |
@@ -42,7 +42,7 @@ Azure SDK för Go erbjuder flera olika typer av autentisering som använder olik
 > Om du inte har särskilda krav bör du undvika autentisering med användarnamn/lösenord. I situationer där användarbaserad inloggning är lämpligt används vanligtvis autentisering med enhetstoken i stället.
 
 [Komma igång med certifikatbaserad autentisering i Azure Active Directory]: /azure/active-directory/active-directory-certificate-based-authentication-get-started
-[Skapa Azure-tjänstens huvudnamn med Azure CLI 2.0]: /cli/azure/create-an-azure-service-principal-azure-cli
+[Skapa ett huvudnamn för tjänsten med Azure CLI 2.0]: /cli/azure/create-an-azure-service-principal-azure-cli
 [Hanterad tjänstidentitet (MSI) för Azure-resurser]: /azure/active-directory/managed-service-identity/overview
 
 De här typerna av autentisering är tillgängliga via olika metoder. [_Miljöbaserad autentisering_](#use-environment-based-authentication) läser autentiseringsuppgifter direkt från programmets miljö. [_Filbaserad autentisering_](#use-file-based-authentication) läser in en fil som innehåller autentiseringsuppgifter för tjänstens huvudnamn. [_Klientbaserad autentisering_](#use-an-authentication-client) använder ett objekt i Go-kod och gör att du ansvarar för att tillhandahålla autentiseringsuppgifterna när programmet körs. Slutligen finns även [_Autentisering med enhetstoken_](#use-device-token-authentication) som kräver att användarna loggar in interaktivt via en webbläsare med en token och som inte kan användas med miljö- eller filbaserad autentisering.
@@ -107,7 +107,7 @@ Dessa variabler kan hämtas från Azure Stack-metadatainformationen. Om du vill 
 | Development Kit | `https://management.local.azurestack.external/` |
 | Integrerade system | `https://management.(region).ext-(machine-name).(FQDN)` |
 
-Mer information om hur du använder Azure SDK för Go på Azure Stack finns i [Use API version profiles with Go in Azure Stack](https://docs.microsoft.com/en-us/azure/azure-stack/user/azure-stack-version-profiles-go) (Använda API-versionsprofiler med Go i Azure Stack
+Mer information om hur du använder Azure SDK för Go på Azure Stack finns i [Use API version profiles with Go in Azure Stack](https://docs.microsoft.com/azure/azure-stack/user/azure-stack-version-profiles-go) (Använda API-versionsprofiler med Go i Azure Stack
 
 
 ## <a name="use-file-based-authentication"></a>Använd filbaserad autentisering
@@ -127,11 +127,11 @@ import "github.com/Azure/go-autorest/autorest/azure/auth"
 authorizer, err := NewAuthorizerFromFile(azure.PublicCloud.ResourceManagerEndpoint)
 ```
 
-Läs mer om att använda tjänstens huvudnamn och att hanteras dess åtkomstbehörigheter i [Skapa Azure-tjänstens huvudnamn med Azure CLI 2.0].
+Läs mer om att använda tjänstens huvudnamn och att hanteras dess åtkomstbehörigheter i [Skapa ett huvudnamn för tjänsten med Azure CLI 2.0].
 
 ## <a name="use-device-token-authentication"></a>Använda autentisering med enhetstoken
 
-Om du vill att användarna ska logga in interaktivt är det bästa sättet att erbjuda den funktionen via autentisering med enhetstoken. Med det här autentiseringsflödet skickas en token till användaren som sedan klistrar in den i en Microsoft-inloggningswebbplats där de sedan loggar in med ett Azure Active Directory (AAD)-konto. Den här autentiseringsmetoden har stöd för konton som har multifaktorautentisering aktiverat, till skillnad från vanlig autentisering med användarnamn/lösenord.
+Om du vill att användarna ska logga in interaktivt är det bästa sättet att erbjuda den funktionen via autentisering med enhetstoken. Med det här autentiseringsflödet skickas en token till användaren som sedan klistrar in den i en Microsoft-inloggningswebbplats där de sedan autentiserar med ett Azure Active Directory (AAD)-konto. Den här autentiseringsmetoden har stöd för konton som har multifaktorautentisering aktiverat, till skillnad från vanlig autentisering med användarnamn/lösenord.
 
 Skapa en [DeviceFlowConfig](https://godoc.org/github.com/Azure/go-autorest/autorest/azure/auth#DeviceFlowConfig)-authorizer med funktionen [NewDeviceFlowConfig](https://godoc.org/github.com/Azure/go-autorest/autorest/azure/auth#NewDeviceFlowConfig) för att använda autentisering med enhetstoken. Anropa [Authorizer](https://godoc.org/github.com/Azure/go-autorest/autorest/azure/auth#DeviceFlowConfig.Authorizer) på det resulterande objektet för att starta autentiseringsprocessen. Enhetens flödesautentisering blockerar programkörningen tills hela autentiseringsflödet är klart.
 

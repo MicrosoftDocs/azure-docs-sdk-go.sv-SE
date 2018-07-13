@@ -10,16 +10,16 @@ ms.prod: azure
 ms.technology: azure-sdk-go
 ms.service: virtual-machines
 ms.devlang: go
-ms.openlocfilehash: 1fbcc54df2a2aebce56c5a5800361f3d3aed1ccc
-ms.sourcegitcommit: f08abf902b48f8173aa6e261084ff2cfc9043305
+ms.openlocfilehash: 7592e8617436a76dd27cac5269971051982425bf
+ms.sourcegitcommit: 181d4e0b164cf39b3feac346f559596bd19c94db
 ms.translationtype: HT
 ms.contentlocale: sv-SE
-ms.lasthandoff: 05/03/2018
-ms.locfileid: "32319942"
+ms.lasthandoff: 07/11/2018
+ms.locfileid: "38067024"
 ---
 # <a name="quickstart-deploy-an-azure-virtual-machine-from-a-template-with-the-azure-sdk-for-go"></a>Snabbstart: Distribuera en virtuell Azure-dator från en mall med Azure SDK för Go
 
-Den här snabbstarten fokuserar på att distribuera resurser från en mall med Azure SDK för Go. Mallar är ögonblicksbilder av alla resurserna som ingår i en [Azure-resursgrupp](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-overview). Du får du bekanta dig med funktioner och konventioner för detta SDK medan du utför en användbar aktivitet.
+Den här snabbstarten fokuserar på att distribuera resurser från en mall med Azure SDK för Go. Mallar är ögonblicksbilder av alla resurserna som ingår i en [Azure-resursgrupp](https://docs.microsoft.com/azure/azure-resource-manager/resource-group-overview). Du får du bekanta dig med funktioner och konventioner för detta SDK medan du utför en användbar aktivitet.
 
 I slutet av den här snabbstarten har du en aktiv virtuell dator som du kan logga in på med ett användarnamn och lösenord.
 
@@ -35,8 +35,7 @@ Om du använder en lokal installation av Azure CLI så krävs version __2.0.28__
 
 ## <a name="create-a-service-principal"></a>Skapa ett huvudnamn för tjänsten
 
-
-Om du vill logga in icke-interaktivt med ett program behöver du ett huvudnamn för tjänsten. Tjänstens huvudnamn är en del av rollbaserad åtkomstkontroll (RBAC), som skapar en unik användaridentitet. Kör följande kommando för att skapa ett unikt huvudnamn för tjänsten med CLI:
+Om du vill logga in icke-interaktivt i Azure med ett program behöver du ett huvudnamn för tjänsten. Tjänstens huvudnamn är en del av rollbaserad åtkomstkontroll (RBAC), som skapar en unik användaridentitet. Kör följande kommando för att skapa ett unikt huvudnamn för tjänsten med CLI:
 
 ```azurecli-interactive
 az ad sp create-for-rbac --name az-go-vm-quickstart --sdk-auth > quickstart.auth
