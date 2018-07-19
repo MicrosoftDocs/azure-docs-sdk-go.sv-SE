@@ -12,12 +12,12 @@ ms.technology: azure-sdk-go
 ms.devlang: go
 ms.service: active-directory
 ms.component: authentication
-ms.openlocfilehash: c7970167070bdf1f3fc75692f3e34268801c65df
-ms.sourcegitcommit: 181d4e0b164cf39b3feac346f559596bd19c94db
+ms.openlocfilehash: f5e76fc745512a3a52172f560c3a24f510e96feb
+ms.sourcegitcommit: d1790b317a8fcb4d672c654dac2a925a976589d4
 ms.translationtype: HT
 ms.contentlocale: sv-SE
-ms.lasthandoff: 07/11/2018
-ms.locfileid: "38067007"
+ms.lasthandoff: 07/14/2018
+ms.locfileid: "39039547"
 ---
 # <a name="authentication-methods-in-the-azure-sdk-for-go"></a>Autentiseringsmetoder i Azure SDK för Go
 
@@ -30,19 +30,19 @@ Azure SDK för Go erbjuder flera olika typer av autentisering som använder olik
 | Autentiseringstyp | Rekommenderas när... |
 |---------------------|---------------------|
 | Certifikatbaserad autentisering | Du har ett X509-certifikat som har konfigurerats för en användare av Azure Active Directory (AAD) eller tjänstens huvudnamn. Läs [Komma igång med certifikatbaserad autentisering i Azure Active Directory] för att lära dig mer. |
-| Klientautentiseringsuppgifter | Du har ett konfigurerat huvudnamn för tjänsten som har konfigurerats för det här programmet eller en klass av program som det tillhör. Läs [Skapa ett huvudnamn för tjänsten med Azure CLI 2.0] för att lära dig mer. |
+| Klientautentiseringsuppgifter | Du har ett konfigurerat huvudnamn för tjänsten som har konfigurerats för det här programmet eller en klass av program som det tillhör. Läs [Skapa ett huvudnamn för tjänsten med Azure CLI] för att lära dig mer. |
 | Hanterad tjänstidentitet (MSI) | Programmet körs på en Azure-resurs som har konfigurerats med Hanterad tjänstidentitet (MSI). Läs [Hanterad tjänstidentitet (MSI) för Azure-resurser] för att lära dig mer. |
 | Enhetstoken | Programmet är avsett att __endast__ användas interaktivt och har en mängd olika användare, potentiellt från flera AAD-klientorganisationer. Användare har åtkomst till en webbläsare för att logga in. Mer information finns i [Använda autentisering med enhetstoken](#use-device-token-authentication).|
 | Användarnamn/lösenord | Du har ett interaktivt program som inte kan använda någon annan autentiseringsmetod. Användarna har inte aktiverat multifaktorautentisering för sin AAD-inloggning. |
 
 > [!IMPORTANT]
 > Om du använder en autentiseringstyp som skiljer sig från klientens autentiseringsuppgifter måste programmet registreras i Azure Active Directory. Läs [Integrera program med Azure Active Directory](/azure/active-directory/develop/active-directory-integrating-applications) för att lära dig hur.
-
+>
 > [!NOTE]
 > Om du inte har särskilda krav bör du undvika autentisering med användarnamn/lösenord. I situationer där användarbaserad inloggning är lämpligt används vanligtvis autentisering med enhetstoken i stället.
 
 [Komma igång med certifikatbaserad autentisering i Azure Active Directory]: /azure/active-directory/active-directory-certificate-based-authentication-get-started
-[Skapa ett huvudnamn för tjänsten med Azure CLI 2.0]: /cli/azure/create-an-azure-service-principal-azure-cli
+[Skapa ett huvudnamn för tjänsten med Azure CLI]: /cli/azure/create-an-azure-service-principal-azure-cli
 [Hanterad tjänstidentitet (MSI) för Azure-resurser]: /azure/active-directory/managed-service-identity/overview
 
 De här typerna av autentisering är tillgängliga via olika metoder. [_Miljöbaserad autentisering_](#use-environment-based-authentication) läser autentiseringsuppgifter direkt från programmets miljö. [_Filbaserad autentisering_](#use-file-based-authentication) läser in en fil som innehåller autentiseringsuppgifter för tjänstens huvudnamn. [_Klientbaserad autentisering_](#use-an-authentication-client) använder ett objekt i Go-kod och gör att du ansvarar för att tillhandahålla autentiseringsuppgifterna när programmet körs. Slutligen finns även [_Autentisering med enhetstoken_](#use-device-token-authentication) som kräver att användarna loggar in interaktivt via en webbläsare med en token och som inte kan användas med miljö- eller filbaserad autentisering.
@@ -54,7 +54,7 @@ Alla autentiseringsfunktioner och -typer är tillgängliga i paketet `github.com
 
 ## <a name="use-environment-based-authentication"></a>Använda miljö för autentisering
 
-Om du kör programmet i en strikt kontrollerad miljö som i en behållare är miljöbaserad autentisering är det naturliga valet. Du kan konfigurera gränssnittsmiljön innan du kör ditt program och Go SDK läser dessa miljövariabler vid körning för att autentisera med Azure. 
+Om du kör programmet i en strikt kontrollerad miljö som i en container, är miljöbaserad autentisering det naturliga valet. Du kan konfigurera gränssnittsmiljön innan du kör ditt program och Go SDK läser dessa miljövariabler vid körning för att autentisera med Azure.
 
 Miljöbaserad autentisering har stöd för alla autentiseringsmetoder förutom enhetstoken och utvärderas i följande ordning: Klientens autentiseringsuppgifter, certifikat, användarnamn/lösenord och hanterad tjänstidentitet (MSI). Om en miljövariabel som krävs är odefinierad eller om SDK blir nekad av autentiseringstjänsten används nästa autentiseringstyp. Om SDK inte kan autentisera från miljön returneras ett fel.
 
@@ -109,10 +109,9 @@ Dessa variabler kan hämtas från Azure Stack-metadatainformationen. Om du vill 
 
 Mer information om hur du använder Azure SDK för Go på Azure Stack finns i [Use API version profiles with Go in Azure Stack](https://docs.microsoft.com/azure/azure-stack/user/azure-stack-version-profiles-go) (Använda API-versionsprofiler med Go i Azure Stack
 
-
 ## <a name="use-file-based-authentication"></a>Använd filbaserad autentisering
 
-Filbaserad autentisering fungerar endast med klientens autentiseringsuppgifter när de lagras i ett lokal filformat som genererats av [Azure CLI 2.0](/cli/azure). Du kan enkelt skapa den här filen när du skapar en ny tjänstens huvudnamn med parametern `--sdk-auth`. Se till att det här argumentet anges när du skapar ett huvudnamn för tjänsten om du tänker använda filbaserad autentisering. Eftersom CLI skriver utdata till `stdout` kan du dirigera om utdata till en fil.
+Filbaserad autentisering fungerar endast med klientens autentiseringsuppgifter när de lagras i ett lokal filformat som genererats av [Azure CLI](/cli/azure). Du kan enkelt skapa den här filen när du skapar en ny tjänstens huvudnamn med parametern `--sdk-auth`. Se till att det här argumentet anges när du skapar ett huvudnamn för tjänsten om du tänker använda filbaserad autentisering. Eftersom CLI skriver utdata till `stdout` kan du dirigera om utdata till en fil.
 
 ```azurecli
 az ad sp create-for-rbac --sdk-auth > azure.auth
@@ -127,7 +126,7 @@ import "github.com/Azure/go-autorest/autorest/azure/auth"
 authorizer, err := NewAuthorizerFromFile(azure.PublicCloud.ResourceManagerEndpoint)
 ```
 
-Läs mer om att använda tjänstens huvudnamn och att hanteras dess åtkomstbehörigheter i [Skapa ett huvudnamn för tjänsten med Azure CLI 2.0].
+Mer information om hur du använder huvudnamn för tjänster och hanterar deras åtkomstbehörigheter finns i [Skapa ett huvudnamn för tjänsten med Azure CLI].
 
 ## <a name="use-device-token-authentication"></a>Använda autentisering med enhetstoken
 

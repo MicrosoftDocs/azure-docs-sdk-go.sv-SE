@@ -4,18 +4,18 @@ description: Distribuera en virtuell dator med hjälp av Azure SDK för Go.
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 04/03/2018
+ms.date: 07/13/2018
 ms.topic: quickstart
 ms.prod: azure
 ms.technology: azure-sdk-go
 ms.service: virtual-machines
 ms.devlang: go
-ms.openlocfilehash: 7592e8617436a76dd27cac5269971051982425bf
-ms.sourcegitcommit: 181d4e0b164cf39b3feac346f559596bd19c94db
+ms.openlocfilehash: 6b1de35748fb7694d45715fa7f028d5730530d2e
+ms.sourcegitcommit: d1790b317a8fcb4d672c654dac2a925a976589d4
 ms.translationtype: HT
 ms.contentlocale: sv-SE
-ms.lasthandoff: 07/11/2018
-ms.locfileid: "38067024"
+ms.lasthandoff: 07/14/2018
+ms.locfileid: "39039564"
 ---
 # <a name="quickstart-deploy-an-azure-virtual-machine-from-a-template-with-the-azure-sdk-for-go"></a>Snabbstart: Distribuera en virtuell Azure-dator från en mall med Azure SDK för Go
 
@@ -27,9 +27,9 @@ I slutet av den här snabbstarten har du en aktiv virtuell dator som du kan logg
 
 [!INCLUDE [cloud-shell-try-it.md](includes/cloud-shell-try-it.md)]
 
-Om du använder en lokal installation av Azure CLI så krävs version __2.0.28__ eller senare för den här snabbstarten. Kör `az --version` för att kontrollera om din CLI-installation uppfyller det här kravet. Om du behöver installera eller uppgradera kan du läsa informationen i [Installera Azure CLI 2.0](/cli/azure/install-azure-cli).
+Om du använder en lokal installation av Azure CLI så krävs version __2.0.28__ eller senare för den här snabbstarten. Kör `az --version` för att kontrollera om din CLI-installation uppfyller det här kravet. Om du behöver installera eller uppgradera kan du läsa informationen i [Installera Azure CLI](/cli/azure/install-azure-cli).
 
-## <a name="install-the-azure-sdk-for-go"></a>Installera Azure SDK för Go 
+## <a name="install-the-azure-sdk-for-go"></a>Installera Azure SDK för Go
 
 [!INCLUDE [azure-sdk-go-get](includes/azure-sdk-go-get.md)]
 
@@ -242,7 +242,9 @@ Distributionsfilerna läses in av `readJSON`. Information om detta hoppas över 
     }
 ```
 
-Den här koden följer samma mönster som vid processen när resursgruppen skapas. En ny klient skapas, ges möjlighet att autentisera med Azure och sedan anropas en metod. Metoden har till och med samma namn (`CreateOrUpdate`) som den motsvarande metoden för resursgrupper. Det här mönstret återkommer om och om igen i SDK. Metoder som utför liknande funktioner har normalt samma namn.
+Den här koden följer samma mönster som vid processen när resursgruppen skapas. En ny klient skapas, ges möjlighet att autentisera med Azure och sedan anropas en metod.
+Metoden har till och med samma namn (`CreateOrUpdate`) som den motsvarande metoden för resursgrupper. Det här mönstret återkommer om och om igen i SDK.
+Metoder som utför liknande funktioner har normalt samma namn.
 
 Den största skillnaden är i returvärdet för metoden `deploymentsClient.CreateOrUpdate`. Det här värdet är av typen [Framtida](https://godoc.org/github.com/Azure/go-autorest/autorest/azure#Future) som följer det [framtida designmönstret](https://en.wikipedia.org/wiki/Futures_and_promises). Framtida värden representerar en långvarig åtgärd i Azure som du kan avsöka, avbryta eller blockera vid slutförande.
 
