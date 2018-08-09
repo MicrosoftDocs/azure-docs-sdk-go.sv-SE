@@ -10,12 +10,12 @@ ms.prod: azure
 ms.technology: azure-sdk-go
 ms.service: virtual-machines
 ms.devlang: go
-ms.openlocfilehash: 4837572a50ae934e71bfe49d916c01e131bb6d83
-ms.sourcegitcommit: f08abf902b48f8173aa6e261084ff2cfc9043305
+ms.openlocfilehash: 3b31716ee42c638bab4a6dd99b9eb0d7c07e51a4
+ms.sourcegitcommit: 0f581979216f7c9d4913681a6d9f6fe09af26e43
 ms.translationtype: HT
 ms.contentlocale: sv-SE
-ms.lasthandoff: 05/03/2018
-ms.locfileid: "32319704"
+ms.lasthandoff: 08/02/2018
+ms.locfileid: "39475797"
 ---
 # <a name="azure-sdk-for-go-samples-for-compute-and-networking"></a>Azure SDK för Go-exempel för beräkning och nätverk
 
@@ -26,5 +26,7 @@ Alla exempel för Azure SDK för Go finns tillgängliga på [GitHub](https://git
 | Namn | Beskrivning |
 |------|-------------|
 | [network/network](https://github.com/Azure-Samples/azure-sdk-for-go-samples/blob/master/network/network.go) | Skapa, uppdatera, ta bort och fråga nätverksresurser, inklusive virtuella nätverk, undernät och nätverkssäkerhetsgrupper. |
-| [compute/loadbalancer](https://github.com/Azure-Samples/azure-sdk-for-go-samples/blob/master/compute/loadbalancer.go) | Skapa och fråga tillgänglighetsgrupper och skapa virtuella datorer med en belastningsutjämnare. |
-| [compute/compute](https://github.com/Azure-Samples/azure-sdk-for-go-samples/blob/master/compute/compute.go) | Skapa, ta bort, uppdatera och hantera energiförbrukning för virtuella datorer. Arbeta med datadiskar och hantera den virtuella datorns OS-disk. |
+| [compute/vm_disk](https://github.com/Azure-Samples/azure-sdk-for-go-samples/blob/master/compute/vm_disk.go) | Skapa, koppla till, koppla från, uppdatera och kryptera datadiskar från en virtuell dator. |
+| [compute/vm](https://github.com/Azure-Samples/azure-sdk-for-go-samples/blob/master/compute/vm.go) | Skapa, uppdatera, inaktivera och hantera virtuella datorer. |
+| [compute/vm_with_availabilityset](https://github.com/Azure-Samples/azure-sdk-for-go-samples/blob/master/compute/vm_with_availabilityset.go) | Skapa tillgänglighetsuppsättningar och belastningsutjämnare för virtuella datorer. |
+| [compute/vm_with_identity](https://github.com/Azure-Samples/azure-sdk-for-go-samples/blob/master/compute/vm_with_identity.go) | Skapa och hantera hanterade tjänstidentiteter (MSI: er) för virtuella datorer. |
