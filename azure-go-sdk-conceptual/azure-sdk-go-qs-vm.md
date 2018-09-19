@@ -4,24 +4,26 @@ description: Distribuera en virtuell dator med hjälp av Azure SDK för Go.
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 07/13/2018
+ms.date: 09/05/2018
 ms.topic: quickstart
-ms.prod: azure
 ms.technology: azure-sdk-go
 ms.service: virtual-machines
 ms.devlang: go
-ms.openlocfilehash: 6b1de35748fb7694d45715fa7f028d5730530d2e
-ms.sourcegitcommit: d1790b317a8fcb4d672c654dac2a925a976589d4
+ms.openlocfilehash: a7970be0857fd414d776241b033af0c23457790c
+ms.sourcegitcommit: 8b9e10b960150dc08f046ab840d6a5627410db29
 ms.translationtype: HT
 ms.contentlocale: sv-SE
-ms.lasthandoff: 07/14/2018
-ms.locfileid: "39039564"
+ms.lasthandoff: 09/07/2018
+ms.locfileid: "44059143"
 ---
 # <a name="quickstart-deploy-an-azure-virtual-machine-from-a-template-with-the-azure-sdk-for-go"></a>Snabbstart: Distribuera en virtuell Azure-dator från en mall med Azure SDK för Go
 
-Den här snabbstarten fokuserar på att distribuera resurser från en mall med Azure SDK för Go. Mallar är ögonblicksbilder av alla resurserna som ingår i en [Azure-resursgrupp](https://docs.microsoft.com/azure/azure-resource-manager/resource-group-overview). Du får du bekanta dig med funktioner och konventioner för detta SDK medan du utför en användbar aktivitet.
+Den här snabbstarten visar hur du distribuerar resurser från en Azure Resource Manager-mall med hjälp av Azure SDK för Go. Mallar är ögonblicksbilder av alla resurserna som ingår i en [Azure-resursgrupp](/azure/azure-resource-manager/resource-group-overview). Du får bekanta dig med funktioner och konventioner för detta SDK.
 
 I slutet av den här snabbstarten har du en aktiv virtuell dator som du kan logga in på med ett användarnamn och lösenord.
+
+> [!NOTE]
+> Om du vill se hur du skapar en virtuell dator i Go utan att använda en Resource Manager-mall finns det ett [obligatoriskt exempel](https://github.com/Azure-Samples/azure-sdk-for-go-samples/blob/master/compute/vm.go) som visar hur du skapar och konfigurerar alla VM-resurser med SDK:t. Med hjälp av en mall fokuserar det här exemplet på SDK-konventioner utan att gå in på för många detaljer om Azures tjänstarkitektur.
 
 [!INCLUDE [quickstarts-free-trial-note](includes/quickstarts-free-trial-note.md)]
 
@@ -38,7 +40,7 @@ Om du använder en lokal installation av Azure CLI så krävs version __2.0.28__
 Om du vill logga in icke-interaktivt i Azure med ett program behöver du ett huvudnamn för tjänsten. Tjänstens huvudnamn är en del av rollbaserad åtkomstkontroll (RBAC), som skapar en unik användaridentitet. Kör följande kommando för att skapa ett unikt huvudnamn för tjänsten med CLI:
 
 ```azurecli-interactive
-az ad sp create-for-rbac --name az-go-vm-quickstart --sdk-auth > quickstart.auth
+az ad sp create-for-rbac --sdk-auth > quickstart.auth
 ```
 
 Ange att miljövariabeln `AZURE_AUTH_LOCATION` ska vara den fullständiga sökvägen för den här filen. Sedan hittar och läser SDK autentiseringsuppgifterna direkt från den här filen utan att du behöver göra ändringar eller registrera information från tjänsten huvudnamn.
@@ -62,13 +64,7 @@ cd $GOPATH/src/github.com/azure-samples/azure-sdk-for-go-samples/quickstarts/dep
 go run main.go
 ```
 
-Om ett fel uppstår under distributionen så får du ett meddelande om att ett problem har uppstått, men informationen du får kanske inte är tillräckligt detaljerad. Du kan få mer information om distributionsfel med följande kommando med hjälp av Azure CLI:
-
-```azurecli-interactive
-az group deployment show -g GoVMQuickstart -n VMDeployQuickstart
-```
-
-Om distributionen lyckas visas ett meddelande som ger användarnamn, IP-adress och lösenord för att logga in på den nya virtuella datorn. SSH-anslut till den här datorn för att bekräfta att den är igång.
+Om distributionen lyckas visas ett meddelande som ger användarnamn, IP-adress och lösenord för att logga in på den nya virtuella datorn. SSH-anslut till den här datorn för att bekräfta att den är igång. 
 
 ## <a name="cleaning-up"></a>Rensa
 
@@ -77,6 +73,18 @@ Rensa resurserna som du skapade i den här snabbstarten genom att ta bort resurs
 ```azurecli-interactive
 az group delete -n GoVMQuickstart
 ```
+
+Ta även bort tjänstens huvudnamn som skapades. I `quickstart.auth`-filen finns det en JSON-nyckel för `clientId`. Kopiera det här värdet till miljövariabeln `CLIENT_ID_VALUE` och kör sedan följande Azure CLI-kommando:
+
+```azurecli-interactive
+az ad sp delete --id ${CLIENT_ID_VALUE}
+```
+
+Där anger du värdet för `CLIENT_ID_VALUE` från `quickstart.auth`.
+
+> [!WARNING]
+> Om tjänstens huvudnamn inte tas bort för det här programmet fortsätter det att vara aktivt i din Azure Active Directory-klient.
+> Både namn och lösenord för tjänstens huvudnamn genereras som UUID:n, men du bör också följa god säkerhetspraxis och ta bort oanvända tjänsthuvudnamn och Azure Active Directory-program.
 
 ## <a name="code-in-depth"></a>Kod på djupet
 
@@ -111,7 +119,7 @@ var (
 
 Värden deklareras och ger namn på skapade resurser. Platsen anges också här och du kan ändra för att se hur distributioner fungerar i andra datacenter. Alla datacenter har inte alla de nödvändiga resurserna tillgängliga.
 
-Typen `clientInfo` har deklarerats innehålla all information som måste läsas in separat från autentiseringsfilen för att konfigurera klienter i SDK och ange lösenordet för den virtuella datorn.
+Typen `clientInfo` innehåller den information som läses in från autentiseringsfilen för att konfigurera klienter i SDK och ange lösenordet för den virtuella datorn.
 
 Konstanterna `templateFile` och `parametersFile` pekar på filerna som behövs för distribution. `authorizer` konfigureras av Go SDK för autentisering och variabeln `ctx` är en [Go-kontext](https://blog.golang.org/context) för nätverksåtgärderna.
 
@@ -170,7 +178,7 @@ De steg som koden kör igenom är, i följande ordning:
 * Skapa distributionen i den här gruppen (`createDeployment`)
 * Skaffa och visa inloggningsinformation för den distribuerade virtuella datorn (`getLogin`)
 
-### <a name="creating-the-resource-group"></a>Skapa resursgruppen
+### <a name="create-the-resource-group"></a>Skapa en resursgrupp
 
 Funktionen `createGroup` skapar resursgruppen. Titta på anropsflödet och argumenten för att se hur tjänstens interaktioner är strukturerade i SDK.
 
@@ -197,7 +205,7 @@ Funktionen [`to.StringPtr`](https://godoc.org/github.com/Azure/go-autorest/autor
 
 Metoden `groupsClient.CreateOrUpdate` returnerar en markör till en datatyp som representerar resursgruppen. Ett direkt returvärde för den här typen anger ett kortvarig åtgärd som är avsedd att vara synkron. I nästa avsnitt visas ett exempel på en långvarig åtgärd och hur du kan interagera med den.
 
-### <a name="performing-the-deployment"></a>Utför distributionen
+### <a name="perform-the-deployment"></a>Genomföra distributionen
 
 När du har skapat resursgruppen är det dags att utföra distributionen. Den här koden har delats upp i mindre delar för att betona olika delar av logiken.
 
@@ -254,20 +262,13 @@ Den största skillnaden är i returvärdet för metoden `deploymentsClient.Creat
     if err != nil {
         return
     }
-    deployment, err = deploymentFuture.Result(deploymentsClient)
-
-    // Work around possible bugs or late-stage failures
-    if deployment.Name == nil || err != nil {
-        deployment, _ = deploymentsClient.Get(ctx, resourceGroupName, deploymentName)
-    }
-    return
+    return deploymentFuture.Result(deploymentsClient)
+}
 ```
 
 I det här exemplet är det bäst att vänta tills åtgärden har slutförts. Att vänta på ett framtidsobjekt kräver både ett [kontextobjekt](https://blog.golang.org/context) och klienten som skapade `Future`. Det finns två möjliga felkällor i det här fallet: Ett fel som orsakats på klientsidan vid försök att anropa metoden eller ett felsvar från servern. Det senare returneras som en del av anropet `deploymentFuture.Result`.
 
-När distributionsinformationen hämtas finns en lösning för möjliga buggar där distributionsinformationen kan vara tom med ett manuell anrop till `deploymentsClient.Get` för att se till att data fylls i.
-
-### <a name="obtaining-the-assigned-ip-address"></a>Hämta den tilldelade IP-adressen
+### <a name="get-the-assigned-ip-address"></a>Hämta den tilldelade IP-adressen
 
 Om du vill göra något med den nya virtuella datorn så behöver du den tilldelade IP-adressen. IP-adresser har egna separata Azure-resurser som är kopplade till nätverkskortresurser (NIC).
 
@@ -301,7 +302,7 @@ Värdet för VM-användaren laddas också från JSON-filen. VM-lösenordet blev 
 
 ## <a name="next-steps"></a>Nästa steg
 
-I den här snabbstarten använde du en befintlig mall och distribuerade den via Go. Sedan anslöt du den till den nyligen skapade virtuella datorn via SSH för att se till att den är aktiv.
+I den här snabbstarten använde du en befintlig mall och distribuerade den via Go. Sedan anslöt du den till den nyligen skapade virtuella datorn via SSH.
 
 Om du vill fortsätta att lära dig om hur du arbetar med virtuella datorer i Azure-miljön med Go så kan du ta en titt på [beräkningsexemplen för Go i Azure](https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/compute) eller [exemplen på resurshantering för Go i Azure](https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/resources).
 

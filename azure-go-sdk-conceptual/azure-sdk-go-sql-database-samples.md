@@ -4,22 +4,21 @@ description: Valda exempel för att arbeta med Azure SQL Database från Azure SD
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 03/21/2018
+ms.date: 09/05/2018
 ms.topic: sample
-ms.prod: azure
 ms.technology: azure-sdk-go
 ms.service: sql-database
 ms.devlang: go
-ms.openlocfilehash: 17eab667721acace20bab79b8290d1031292be12
-ms.sourcegitcommit: 0f581979216f7c9d4913681a6d9f6fe09af26e43
+ms.openlocfilehash: 1f8b011ad87b1be2a155120e4aab843b16c474a0
+ms.sourcegitcommit: 8b9e10b960150dc08f046ab840d6a5627410db29
 ms.translationtype: HT
 ms.contentlocale: sv-SE
-ms.lasthandoff: 08/02/2018
-ms.locfileid: "39475899"
+ms.lasthandoff: 09/07/2018
+ms.locfileid: "44059074"
 ---
 # <a name="azure-sdk-for-go-samples-for-azure-sql-database"></a>Azure SDK för Go-exempel för Azure SQL Database
 
-Följande tabell innehåller länkar till valda exempel på Go-källkod som du kan använda för att arbeta med Azure SQL Database.
+Följande tabell innehåller länkar till utvalda exempel som visar hur du använder Azure SQL Database från Azure SDK för Go.
 
 Alla exempel för Azure SDK för Go finns tillgängliga på [GitHub](https://github.com/Azure-Samples/azure-sdk-for-go-samples).
 

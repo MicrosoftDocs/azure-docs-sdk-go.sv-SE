@@ -9,12 +9,12 @@ ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-sdk-go
 ms.devlang: go
-ms.openlocfilehash: 3388359bba791c87025b6ffd0e6b476f95589f73
-ms.sourcegitcommit: 81e97407e6139375bf7357045e818c87a17dcde1
+ms.openlocfilehash: 013a771345d96f0fa8dbece3218a01650744f70b
+ms.sourcegitcommit: 8b9e10b960150dc08f046ab840d6a5627410db29
 ms.translationtype: HT
 ms.contentlocale: sv-SE
-ms.lasthandoff: 06/19/2018
-ms.locfileid: "36262996"
+ms.lasthandoff: 09/07/2018
+ms.locfileid: "44059194"
 ---
 # <a name="install-the-azure-sdk-for-go"></a>Installera Azure SDK för Go
 
@@ -37,9 +37,9 @@ Vissa Azure-tjänster har sitt eget Go-SDK och ingår inte i Azure SDK for Go-gr
 
 ## <a name="vendor-the-azure-sdk-for-go"></a>Vendoring i Azure SDK för Go
 
-Du kan utföra vendoring för Azure SDK för Go via [dep](https://github.com/golang/dep). Vendoring rekommenderas av stabilitetsskäl. Om du vill använda stöd för `dep` lägger du till `github.com/Azure/azure-sdk-for-go` i ett `[[constraint]]`-avsnitt i din `Gopkg.toml`. Om du till exempel vill utföra vendoring för version `14.0.0` lägger du till följande post:
+Du kan utföra vendoring för Azure SDK för Go via [dep](https://github.com/golang/dep). Vendoring rekommenderas av stabilitetsskäl. Om du vill använda `dep` i ditt projekt lägger du till `github.com/Azure/azure-sdk-for-go` i ett `[[constraint]]`-avsnitt i din `Gopkg.toml`. Om du till exempel vill utföra vendoring för version `14.0.0` lägger du till följande post:
 
-```
+```toml
 [[constraint]]
 name = "github.com/Azure/azure-sdk-for-go"
 version = "14.0.0"
@@ -62,13 +62,14 @@ Du får en fullständig lista över tillgängliga moduler från GoDoc för [till
 [autorest/adal]: https://godoc.org/github.com/Azure/go-autorest/autorest/adal
 [autorest/to]: https://godoc.org/github.com/Azure/go-autorest/autorest/to
 
-Versioner av moduler för Azure-tjänster är oberoende av deras SDK-API:er. De här versionerna är en del av importsökvägen för modulen och kommer antingen från en _tjänstversion_ eller en _profil_. För närvarande rekommenderar vi att du använder en specifik tjänstversion för både utveckling och utgivning. Tjänster finns under modulen `services`. Den fullständiga sökvägen för importen är namnet på tjänsten, följt av versionen i formatet `YYYY-MM-DD`, följt av namnet på tjänsten igen. Så här inkluderar du till exempel versionen `2017-03-30` av beräkningstjänsten:
+Versioner av Go-paket och Azure-tjänster är oberoende av varandra. Tjänstversionerna är en del av importsökvägen för modulen nedanför modulen `services`. Den fullständiga sökvägen för modulen är namnet på tjänsten, följt av versionen i formatet `YYYY-MM-DD`, följt av namnet på tjänsten igen. Så här importerar du till exempel versionen `2017-03-30` av beräkningstjänsten:
 
 ```go
 import "github.com/Azure/azure-sdk-for-go/services/compute/mgmt/2017-03-30/compute"
 ```
 
-Just nu rekommenderar vi att du använder den senaste versionen av en tjänst om du inte har en bra anledning att inte göra det.
+Vi rekommenderar att du använder den senaste versionen av en tjänst när du börjar utveckla och är konsekvent.
+Tjänstekrav kan ändras från en version till nästa och det kan bryta din kod, även om det inte förekommer Go SDK-uppdateringar under den tiden.
 
 Du kan även välja en enskild profilversion om du behöver en kollektiv ögonblicksbild av tjänsterna. Just nu är den enda låsta profilen version `2017-03-09`, som kanske inte har de senaste funktionerna för tjänsterna. Profilerna finns under modulen `profiles` med versionerna i formatet `YYYY-MM-DD`. Tjänsterna är grupperade under profilversionerna. Så här importerar du till exempel hanteringsmodulen för Azure-resurser från profilen `2017-03-09`:
 
