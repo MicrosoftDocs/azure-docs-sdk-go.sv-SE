@@ -11,12 +11,12 @@ ms.technology: azure-sdk-go
 ms.devlang: go
 ms.service: active-directory
 ms.component: authentication
-ms.openlocfilehash: 28fd4a4c0832ab19dcf52dc549d0ddc0d1eec6f1
-ms.sourcegitcommit: 8b9e10b960150dc08f046ab840d6a5627410db29
+ms.openlocfilehash: 8f94b9ba715c32263d324306cce69bd484c05702
+ms.sourcegitcommit: c435f6602524565d340aac5506be5e955e78f16c
 ms.translationtype: HT
 ms.contentlocale: sv-SE
-ms.lasthandoff: 09/07/2018
-ms.locfileid: "44059109"
+ms.lasthandoff: 09/12/2018
+ms.locfileid: "44711982"
 ---
 # <a name="authentication-methods-in-the-azure-sdk-for-go"></a>Autentiseringsmetoder i Azure SDK för Go
 
@@ -30,7 +30,7 @@ Azure SDK för Go erbjuder flera olika typer av autentisering som använder olik
 |---------------------|---------------------|
 | Certifikatbaserad autentisering | Du har ett X509-certifikat som har konfigurerats för en användare av Azure Active Directory (AAD) eller tjänstens huvudnamn. Läs [Komma igång med certifikatbaserad autentisering i Azure Active Directory] för att lära dig mer. |
 | Klientautentiseringsuppgifter | Du har ett konfigurerat huvudnamn för tjänsten som har konfigurerats för det här programmet eller en klass av program som det tillhör. Läs [Skapa ett huvudnamn för tjänsten med Azure CLI] för att lära dig mer. |
-| Hanterad tjänstidentitet (MSI) | Programmet körs på en Azure-resurs som har konfigurerats med Hanterad tjänstidentitet (MSI). Läs [Hanterad tjänstidentitet (MSI) för Azure-resurser] för att lära dig mer. |
+| Hanterade identiteter för Azure-resurser | Programmet körs på en Azure-resurs som har konfigurerats med en hanterad identitet. Mer information finns i [Hanterade identiteter för Azure-resurser]. |
 | Enhetstoken | Programmet är avsett att __endast__ användas interaktivt. Användare kan ha aktiverat multifaktorautentisering. Användare har åtkomst till en webbläsare för att logga in. Mer information finns i [Använda autentisering med enhetstoken](#use-device-token-authentication).|
 | Användarnamn/lösenord | Du har ett interaktivt program som inte kan använda någon annan autentiseringsmetod. Användarna har inte aktiverat multifaktorautentisering för sin AAD-inloggning. |
 
@@ -42,7 +42,7 @@ Azure SDK för Go erbjuder flera olika typer av autentisering som använder olik
 
 [Komma igång med certifikatbaserad autentisering i Azure Active Directory]: /azure/active-directory/active-directory-certificate-based-authentication-get-started
 [Skapa ett huvudnamn för tjänsten med Azure CLI]: /cli/azure/create-an-azure-service-principal-azure-cli
-[Hanterad tjänstidentitet (MSI) för Azure-resurser]: /azure/active-directory/managed-service-identity/overview
+[Hanterade identiteter för Azure-resurser]: /azure/active-directory/managed-identities-azure-resources/overview
 
 De här typerna av autentisering är tillgängliga via olika metoder.
 
@@ -65,7 +65,7 @@ Miljöbaserad autentisering har stöd för alla autentiseringsmetoder förutom e
 * Klientautentiseringsuppgifter
 * X509-certifikat
 * Användarnamn/lösenord
-* Hanterad tjänstidentitet (MSI)
+* Hanterade identiteter för Azure-resurser
 
 Om en autentiseringstyp har odefinierade värden eller nekas försöker SDK automatiskt nästa autentiseringstyp. SDK returnerar ett fel när det inte finns fler typer.
 
@@ -84,7 +84,7 @@ I följande tabell beskrivs miljövariabler som måste anges för varje autentis
 | | `AZURE_CLIENT_ID` | Programmets klients-ID. |
 | | `AZURE_USERNAME` | Användarnamnet som används för att logga in. |
 | | `AZURE_PASSWORD` | Lösenordet som används för att logga in. |
-| __MSI__ | | Autentiseringsuppgifter behövs inte för MSI-autentisering. Programmet måste köras på en Azure-resurs konfigurerad för att använda MSI. Mer information finns i [Hanterad tjänstidentitet (MSI) för Azure-resurser]. |
+| __Hanterad identitet__ | | Autentiseringsuppgifter behövs inte för autentisering av hanterad identitet. Programmet måste köras på en Azure-resurs som har konfigurerats för att använda hanterade identiteter. Information finns i [Hanterade identiteter för Azure-resurser]. |
 
 Om du behöver ansluta till ett moln eller en hanteringsslutpunkt annat än det offentliga Azure-moln som är standard kan du ange följande miljövariabler. De vanligaste orsakerna är att du använder Azure Stack, ett moln i en annan geografisk region eller den klassiska distributionsmodellen.
 
@@ -168,7 +168,7 @@ I följande tabell visas typerna i SDK som överensstämmer med gränssnittet `A
 |---------------------|-----------------------|
 | Certifikatbaserad autentisering | [ClientCertificateConfig] |
 | Klientautentiseringsuppgifter | [ClientCredentialsConfig] |
-| Hanterad tjänstidentitet (MSI) | [MSIConfig] |
+| Hanterade identiteter för Azure-resurser | [MSIConfig] |
 | Användarnamn/lösenord | [UsernamePasswordConfig] |
 
 [ClientCertificateConfig]: https://godoc.org/github.com/Azure/go-autorest/autorest/azure/auth#ClientCertificateConfig
