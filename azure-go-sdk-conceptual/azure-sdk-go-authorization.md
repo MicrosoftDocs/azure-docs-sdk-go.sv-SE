@@ -10,12 +10,12 @@ ms.topic: conceptual
 ms.technology: azure-sdk-go
 ms.devlang: go
 ms.component: authentication
-ms.openlocfilehash: f5c2c56e43828f0bedad0b5781dc71991ce1fd3e
-ms.sourcegitcommit: 172f81dd6e4c6a275dc8031815aa87cdb488cbf0
+ms.openlocfilehash: c2c3dccfa8da5cfe57fee0b90139002068982560
+ms.sourcegitcommit: 887b15afcdeaf926a5f3d21b64e4045167fd062c
 ms.translationtype: HT
 ms.contentlocale: sv-SE
-ms.lasthandoff: 09/26/2018
-ms.locfileid: "47231683"
+ms.lasthandoff: 10/21/2018
+ms.locfileid: "49481990"
 ---
 # <a name="authentication-methods-in-the-azure-sdk-for-go"></a>Autentiseringsmetoder i Azure SDK för Go
 
@@ -70,20 +70,21 @@ Om en autentiseringstyp har odefinierade värden eller nekas försöker SDK auto
 
 I följande tabell beskrivs miljövariabler som måste anges för varje autentiseringstyp som stöds av miljöbaserad autentisering.
 
-| Autentiseringstyp | Miljövariabel | Beskrivning |
-| ------------------- | -------------------- | ----------- |
-| __Klientautentiseringsuppgifter__ | `AZURE_TENANT_ID` | ID för Active Directory-klientorganisationen som tjänstens huvudnamn tillhör. |
-| | `AZURE_CLIENT_ID` | Namn eller ID för tjänstens huvudnamn. |
-| | `AZURE_CLIENT_SECRET` | Hemligheten som är associerad med tjänstens huvudnamn. |
-| __Certifikat__ | `AZURE_TENANT_ID` | ID för Active Directory-klientorganisationen som certifikatet är registrerat i. |
-| | `AZURE_CLIENT_ID` | Programmets klient-ID som är associerat med certifikatet. |
-| | `AZURE_CERTIFICATE_PATH` | Sökvägen till klientcertifikatfilen. |
-| | `AZURE_CERTIFICATE_PASSWORD` | Lösenordet för klientcertifikatet. |
-| __Användarnamn/lösenord__ | `AZURE_TENANT_ID` | ID för Active Directory-klientorganisationen som användaren tillhör. |
-| | `AZURE_CLIENT_ID` | Programmets klients-ID. |
-| | `AZURE_USERNAME` | Användarnamnet som används för att logga in. |
-| | `AZURE_PASSWORD` | Lösenordet som används för att logga in. |
-| __Hanterad identitet__ | | Autentiseringsuppgifter behövs inte för autentisering av hanterad identitet. Programmet måste köras på en Azure-resurs som har konfigurerats för att använda hanterade identiteter. Information finns i [Hanterade identiteter för Azure-resurser]. |
+
+|  Autentiseringstyp   |     Miljövariabel     |                                                                                                     Beskrivning                                                                                                      |
+|------------------------|------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Klientautentiseringsuppgifter** |      `AZURE_TENANT_ID`       |                                                                    ID för Active Directory-klientorganisationen som tjänstens huvudnamn tillhör.                                                                     |
+|                        |      `AZURE_CLIENT_ID`       |                                                                                       Namn eller ID för tjänstens huvudnamn.                                                                                       |
+|                        |    `AZURE_CLIENT_SECRET`     |                                                                                  Hemligheten som är associerad med tjänstens huvudnamn.                                                                                   |
+|    **Certifikat**     |      `AZURE_TENANT_ID`       |                                                                   ID för Active Directory-klientorganisationen som certifikatet är registrerat i.                                                                    |
+|                        |      `AZURE_CLIENT_ID`       |                                                                              Programmets klient-ID som är associerat med certifikatet.                                                                              |
+|                        |   `AZURE_CERTIFICATE_PATH`   |                                                                                       Sökvägen till klientcertifikatfilen.                                                                                       |
+|                        | `AZURE_CERTIFICATE_PASSWORD` |                                                                                       Lösenordet för klientcertifikatet.                                                                                       |
+| **Användarnamn/lösenord**  |      `AZURE_TENANT_ID`       |                                                                           ID för Active Directory-klientorganisationen som användaren tillhör.                                                                           |
+|                        |      `AZURE_CLIENT_ID`       |                                                                                              Programmets klients-ID.                                                                                              |
+|                        |       `AZURE_USERNAME`       |                                                                                            Användarnamnet som används för att logga in.                                                                                             |
+|                        |       `AZURE_PASSWORD`       |                                                                                            Lösenordet som används för att logga in.                                                                                             |
+|  **Hanterad identitet**  |                              | Autentiseringsuppgifter behövs inte för autentisering av hanterad identitet. Programmet måste köras på en Azure-resurs som har konfigurerats för att använda hanterade identiteter. Information finns i [Hanterade identiteter för Azure-resurser]. |
 
 Om du behöver ansluta till ett moln eller en hanteringsslutpunkt annat än det offentliga Azure-moln som är standard kan du ange följande miljövariabler. De vanligaste orsakerna är att du använder Azure Stack, ett moln i en annan geografisk region eller den klassiska distributionsmodellen.
 
