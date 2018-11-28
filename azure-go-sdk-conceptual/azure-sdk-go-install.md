@@ -9,12 +9,12 @@ ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-sdk-go
 ms.devlang: go
-ms.openlocfilehash: 013a771345d96f0fa8dbece3218a01650744f70b
-ms.sourcegitcommit: 8b9e10b960150dc08f046ab840d6a5627410db29
-ms.translationtype: HT
+ms.openlocfilehash: 7990ec8bde5622078aa822fc7e66ba5c4384d682
+ms.sourcegitcommit: 3d26b464f196f8675c636ae792637d4c882fb92c
+ms.translationtype: MT
 ms.contentlocale: sv-SE
-ms.lasthandoff: 09/07/2018
-ms.locfileid: "44059194"
+ms.lasthandoff: 11/27/2018
+ms.locfileid: "52337151"
 ---
 # <a name="install-the-azure-sdk-for-go"></a>Installera Azure SDK för Go
 
@@ -90,7 +90,7 @@ Testa att använda en snabbstart om du vill börja använda Azure SDK för Go.
 
 Om du vill komma igång med andra tjänster i Go SDK direkt så kan du ta en titt på några av de tillgängliga exempelkoderna.
 
-* [Autentisera med Azure-tjänster](https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/iam)
+* [Autentisera med Azure-tjänster](https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/internal/iam)
 * [Distribuera nya virtuella datorer med SSH-autentisering](https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/compute)
 * [Distribuera en behållaravbildning till Azure Container Instances](https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/containerinstance)
 * [Skapa ett kluster i Azure Kubernetes Service](https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/containerservice)
